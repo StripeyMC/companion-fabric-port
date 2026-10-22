@@ -1,34 +1,43 @@
-# Campanion — Fabric 1.21.1 port (UNTESTED, never compiled)
+Campanion (Unofficial Fabric 1.21.1 Port)
 
-Port of TerraformersMC's Campanion (LGPL-3.0, https://github.com/TerraformersMC/Campanion, branch `1.19`)
-from Forge 1.19.2 to **Fabric 1.21.1**. Original authors: Wyn Price, NeusFear, Prospector, TerraformersMC and contributors.
-If you share this, keep LICENSE.md and make this source available (LGPL-3.0).
+An unofficial, community port of Campanion by TerraformersMC from Forge 1.19.2 to Fabric 1.21.1. It is not made or endorsed by the original team.
 
-## Build
-Requirements: Java 21. Then:
+Features
+Tents: craft a tent, store it in a tent bag, and place it with a preview showing where it fits (16 colours).
+Sleeping bag: dyeable, sleep anywhere without changing your spawn.
+Lawn chairs: 16 colours, re-dye them in the crafting grid.
+Backpacks: day pack, camping pack and hiking pack with extra storage, opened with a keybind.
+Rope tools: rope, rope ladders and buildable rope bridges.
+Grappling hook and throwable spears (wood to netherite).
+Skipping stones and flares.
+Campfire food: marshmallows, s'mores, crackers and MRE rations. Dye on a campfire changes its smoke colour.
+Leather tanner, and howling wolves.
+Requirements
+Minecraft 1.21.1
+Fabric Loader 0.16+
+Fabric API
+Java 21
+Differences from the original
+Enchantments are data-driven in 1.21, so spears may also receive extra enchantments such as loyalty.
+The campfire dye recipe now yields charcoal (1.21 recipes cannot output nothing).
+Coloured campfire smoke is an independent reimplementation, so shades differ slightly.
+Worlds and items from the 1.19.2 version are not converted.
+Building
 
-    ./gradlew build
+Needs JDK 21.
 
-The jar is in `build/libs/`. Put it in a Fabric 1.21.1 `mods` folder together with Fabric API.
-If Gradle can't resolve Fabric API `0.115.0+1.21.1`, change `fabric_version` in `gradle.properties` to a current 1.21.1 build.
+./gradlew build
 
-## IMPORTANT
-This port was written without access to a compiler or the game. Expect compile errors on the first build:
-send them back and they get fixed in rounds. APIs I was least sure of:
-- `Model.renderToBuffer(..., int color)` and `ModelPart.render(..., color)` signatures
-- `AbstractArrow` constructors / `getDefaultPickupItem`, `EnchantmentHelper.doPostAttackEffectsWithItemSource` (SpearEntity)
-- `Entity.canChangeDimensions(Level, Level)`, `Item.getUseDuration(ItemStack)`
-- `BlockEntityType.Builder.of`, `Minecraft.getTimer().getGameTimeDeltaPartialTick`
-- Fabric `ModelLoadingPlugin` id matching for rope bridge models, `MaterialFinder.blendMode`
-- `ClientLevel` constructor used by `FakeWorld` (tent item preview)
-- `UnbakedModel.bake/resolveParents` signatures
+The jar is created in build/libs/. To test in a dev client: ./gradlew runClient.
 
-## Known behaviour differences
-- Enchantments are data-driven in 1.21: spears are added to trident/crossbow/durability/vanishing enchantable tags
-  (so loyalty/channeling/etc. may also appear on spears).
-- Sleeping bag dye uses the vanilla dyed-colour component (`minecraft:dyeable` tag).
-- Campfire "dye" recipe now yields charcoal (1.21 recipes cannot output air).
-- Coloured campfire smoke uses the dye's firework colour.
-- Item NBT is stored in the custom-data component; old 1.19.2 worlds/items are not migrated except backpack data from players.
-- Lawn chair seat offset (`passengerAttachments(0.5F)`) is a guess.
-- Removed: Forge/NeoForge code, Trinkets/Nourish data is kept but unused.
+Credits
+
+Original mod by Wyn Price, NeusFear, Prospector, TerraformersMC and contributors (see the original repository). Fabric 1.21.1 port by StripeyMC.
+
+License
+
+LGPL-3.0, the same as the original.
+
+Known issues
+
+This port is lightly tested. Please report bugs in this repository's Issues tab.
