@@ -1,0 +1,14 @@
+{
+    "parent": "item/handheld_rod",
+    "textures": {
+        "layer0": "campanion:item/grappling_hook"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "campanion:deployed": 1
+            },
+            "model": "campanion:item/grappling_hook_deployed"
+        }
+    ]
+}

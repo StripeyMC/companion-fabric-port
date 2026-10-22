@@ -1,0 +1,80 @@
+package com.terraformersmc.campanion.client.rendering;
+
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+
+/**
+ * Collects quads one vertex at a time and builds a Fabric Renderer API {@link Mesh} out of them.
+ */
+public class BlockModelPartCreator {
+	private final RenderMaterial material;
+	private final MeshBuilder meshBuilder;
+	private final QuadEmitter emitter;
+
+	private boolean buildingQuad;
+	private int currentVertex = 0;
+
+	public BlockModelPartCreator() {
+		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+
+		this.meshBuilder = renderer.meshBuilder();
+		this.emitter = this.meshBuilder.getEmitter();
+		this.material = renderer.materialFinder().blendMode(BlendMode.CUTOUT).find();
+	}
+
+	public void beginQuad() {
+		if (this.buildingQuad) {
+			throw new RuntimeException("Tried to begin builder twice");
+		}
+		this.currentVertex = 0;
+		this.buildingQuad = true;
+		this.emitter.material(this.material);
+	}
+
+	public BlockModelPartCreator position(float x, float y, float z) {
+		this.emitter.pos(this.currentVertex, x, y, z);
+		return this;
+	}
+
+	public BlockModelPartCreator uv(float u, float v) {
+		this.emitter.uv(this.currentVertex, u, v);
+		return this;
+	}
+
+	public BlockModelPartCreator colour(int colour) {
+		this.emitter.color(this.currentVertex, colour);
+		return this;
+	}
+
+	public BlockModelPartCreator normal(float x, float y, float z) {
+		this.emitter.normal(this.currentVertex, x, y, z);
+		return this;
+	}
+
+	public void finishVertex() {
+		this.currentVertex++;
+		if (this.currentVertex > 4) {
+			throw new RuntimeException("Tried finishing more than 4 vertices");
+		}
+	}
+
+	public void finishQuad() {
+		if (!this.buildingQuad) {
+			throw new RuntimeException("Tried to finish building without starting");
+		}
+		if (this.currentVertex != 4) {
+			throw new RuntimeException("Tried to finish with " + this.currentVertex + " number of vertices");
+		}
+		this.buildingQuad = false;
+		this.emitter.emit();
+	}
+
+	public Mesh created() {
+		return this.meshBuilder.build();
+	}
+}

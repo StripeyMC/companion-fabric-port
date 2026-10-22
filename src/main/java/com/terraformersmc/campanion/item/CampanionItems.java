@@ -1,0 +1,75 @@
+package com.terraformersmc.campanion.item;
+
+import com.terraformersmc.campanion.Campanion;
+import com.terraformersmc.campanion.entity.CampanionEntities;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class CampanionItems {
+
+	private static final Map<ResourceLocation, Item> ITEMS = new LinkedHashMap<>();
+	private static final Map<Item, ResourceKey<CreativeModeTab>> TABS = new LinkedHashMap<>();
+
+	public static final Item MRE = add("mre", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(20).saturationModifier(1.24F).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+	public static final Item ROPE = add("rope", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+	public static final Item LEATHER_POUCH = add("leather_pouch", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+	public static final Item TANNED_LEATHER_POUCH = add("tanned_leather_pouch", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+	public static final Item WOODEN_ROD = add("wooden_rod", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+	public static final Item WOOL_TARP = add("wool_tarp", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+
+	public static final Item TANNED_LEATHER = add("tanned_leather", new Item(new Item.Properties()), CreativeModeTabs.INGREDIENTS);
+
+	public static final Item CRACKER = add("cracker", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+	public static final Item MARSHMALLOW = add("marshmallow", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+	public static final Item COOKED_MARSHMALLOW = add("cooked_marshmallow", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+	public static final Item BLACKENED_MARSHMALLOW = add("blackened_marshmallow", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+	public static final Item MARSHMALLOW_ON_A_STICK = add("marshmallow_on_a_stick", new MarshmallowOnAStickItem(new Item.Properties(), MARSHMALLOW), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final Item COOKED_MARSHMALLOW_ON_A_STICK = add("cooked_marshmallow_on_a_stick", new MarshmallowOnAStickItem(new Item.Properties(), COOKED_MARSHMALLOW), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final Item BLACKENED_MARSHMALLOW_ON_A_STICK = add("blackened_marshmallow_on_a_stick", new MarshmallowOnAStickItem(new Item.Properties(), BLACKENED_MARSHMALLOW), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final Item SMORE = add("smore", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).build())), CreativeModeTabs.FOOD_AND_DRINKS);
+
+	public static final BackpackItem DAY_PACK = add("day_pack", new BackpackItem(BackpackItem.Type.DAY_PACK, new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final BackpackItem CAMPING_PACK = add("camping_pack", new BackpackItem(BackpackItem.Type.CAMPING_PACK, new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final BackpackItem HIKING_PACK = add("hiking_pack", new BackpackItem(BackpackItem.Type.HIKING_PACK, new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+
+	public static final SpearItem WOODEN_SPEAR = add("wooden_spear", new SpearItem(Tiers.WOOD, 2.0F, -2.2F, () -> CampanionEntities.WOODEN_SPEAR, new Item.Properties()), CreativeModeTabs.COMBAT);
+	public static final SpearItem STONE_SPEAR = add("stone_spear", new SpearItem(Tiers.STONE, 2.0F, -2.3F, () -> CampanionEntities.STONE_SPEAR, new Item.Properties()), CreativeModeTabs.COMBAT);
+	public static final SpearItem IRON_SPEAR = add("iron_spear", new SpearItem(Tiers.IRON, 2.0F, -2.5F, () -> CampanionEntities.IRON_SPEAR, new Item.Properties()), CreativeModeTabs.COMBAT);
+	public static final SpearItem GOLDEN_SPEAR = add("golden_spear", new SpearItem(Tiers.GOLD, 2.0F, -2.7F, () -> CampanionEntities.GOLDEN_SPEAR, new Item.Properties()), CreativeModeTabs.COMBAT);
+	public static final SpearItem DIAMOND_SPEAR = add("diamond_spear", new SpearItem(Tiers.DIAMOND, 2.0F, -2.7F, () -> CampanionEntities.DIAMOND_SPEAR, new Item.Properties()), CreativeModeTabs.COMBAT);
+	public static final SpearItem NETHERITE_SPEAR = add("netherite_spear", new SpearItem(Tiers.NETHERITE, 2.0F, -2.8F, () -> CampanionEntities.NETHERITE_SPEAR, new Item.Properties().fireResistant()), CreativeModeTabs.COMBAT);
+
+	public static final SkippingStoneItem SKIPPING_STONE = add("skipping_stone", new SkippingStoneItem(new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+
+	public static final FlareItem FLARE = add("flare", new FlareItem(new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+
+	public static final GrapplingHookItem GRAPPLING_HOOK = add("grappling_hook", new GrapplingHookItem(new Item.Properties().durability(120)), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final SleepingBagItem SLEEPING_BAG = add("sleeping_bag", new SleepingBagItem(new Item.Properties().durability(250)), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final TentBagItem TENT_BAG = add("tent_bag", new TentBagItem(new Item.Properties()), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final TentItem SMALL_UNBUILT_TENT = add("small_unbuilt_tent", new TentItem(new Item.Properties().stacksTo(1), "small"), CreativeModeTabs.TOOLS_AND_UTILITIES);
+	public static final TentItem LARGE_UNBUILT_TENT = add("large_unbuilt_tent", new TentItem(new Item.Properties().stacksTo(1), "large"), CreativeModeTabs.TOOLS_AND_UTILITIES);
+
+	private static <I extends Item> I add(String name, I item, ResourceKey<CreativeModeTab> tab) {
+		ITEMS.put(Campanion.id(name), item);
+		TABS.put(item, tab);
+		return item;
+	}
+
+	public static Map<ResourceLocation, Item> getItems() {
+		return ITEMS;
+	}
+
+	/** The vanilla creative tab each item is listed in. */
+	public static Map<Item, ResourceKey<CreativeModeTab>> getTabs() {
+		return TABS;
+	}
+}
