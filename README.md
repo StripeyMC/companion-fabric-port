@@ -1,4 +1,4 @@
-Campanion (Unofficial Fabric 1.21.1 Port)
+Campanion (Unofficial Fabric Port)
 
 An unofficial, community port of Campanion by TerraformersMC from Forge 1.19.2 to Fabric 1.21.1. It is not made or endorsed by the original team.
 
